@@ -1,0 +1,61 @@
+sync:
+  defaults:
+    ignore:
+      paths:
+        - .DS_Store
+  code:
+    alpha: "./"
+    beta: "docker://docker_php-fpm_1/var/www"
+    mode: "one-way-safe"
+    permissions:
+      defaultFileMode: 666
+      defaultDirectoryMode: 777
+    ignore:
+      vcs: true
+      paths:
+        - "/vendor/"
+        - "/var/"
+        - "/bin/"
+        - "/docker/"
+        - "/.idea/"
+        - "/mutagen.yml"
+        - "/mutagen.yml.lock"
+  composerjson:
+    alpha: "./composer.json"
+    beta: "docker://docker_php-fpm_1/var/www/composer.json"
+    mode: "two-way-resolved"
+    watch:
+      pollingInterval: 2
+    permissions:
+      defaultFileMode: 666
+      defaultDirectoryMode: 777
+    ignore:
+      vcs: false
+    symlink:
+      mode: "ignore"
+  composerlock:
+    alpha: "./composer.lock"
+    beta: "docker://docker_php-fpm_1/var/www/composer.lock"
+    mode: "two-way-resolved"
+    watch:
+      pollingInterval: 2
+    permissions:
+      defaultFileMode: 666
+      defaultDirectoryMode: 777
+    ignore:
+      vcs: false
+    symlink:
+      mode: "ignore"
+  vendor:
+    alpha: "./vendor"
+    beta: "docker://docker_php-fpm_1/var/www/vendor"
+    mode: "two-way-resolved"
+    watch:
+      pollingInterval: 60
+    permissions:
+      defaultFileMode: 666
+      defaultDirectoryMode: 777
+    ignore:
+      vcs: false
+    symlink:
+      mode: "ignore"
