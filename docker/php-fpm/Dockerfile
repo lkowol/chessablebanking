@@ -19,8 +19,8 @@ COPY ./docker/php-fpm/wait-for-it.sh /usr/bin/wait-for-it
 
 RUN composer install -o
 RUN PATH=$PATH:/var/www/vendor/bin:bin
-RUN ["mkdir", "/var/www/var/cache/prod"]
-RUN ["mkdir", "/var/www/var/cache/dev"]
+RUN ["mkdir", "-p", "/var/www/var/cache/prod"]
+RUN ["mkdir", "-p", "/var/www/var/cache/dev"]
 RUN ["touch", "/var/www/var/log/prod.log"]
 RUN ["touch", "/var/www/var/log/dev.log"]
 RUN ["chmod", "-R", "777", "/var/www/var"]
