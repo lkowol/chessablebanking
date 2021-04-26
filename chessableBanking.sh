@@ -4,10 +4,16 @@ dockerBuild () {
    cd docker && docker-compose build && cd ..
 }
 
-run () {
+runWithoutMutagen () {
    cd docker && docker-compose up &
    cd public/assets/panel && npm install admin-lte && cd ../../..
    sleep 10
+   docker exec docker_php-fpm_1 php /var/www/bin/console cache:clear
+   docker exec docker_php-fpm_1 php /var/www/bin/console chessable-banking:migration:migrate
+}
+
+run () {
+    runWithoutMutagen
    mutagen project terminate
    mutagen project start
 }
@@ -29,6 +35,9 @@ case $1 in
   ;;
   run)
     run
+  ;;
+  runWithoutMutagen)
+    runWithoutMutagen
   ;;
   stop)
     stop
