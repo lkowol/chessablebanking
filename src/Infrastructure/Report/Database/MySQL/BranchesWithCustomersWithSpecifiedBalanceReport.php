@@ -32,7 +32,7 @@ class BranchesWithCustomersWithSpecifiedBalanceReport implements BranchesWithCus
                 ON `customer`.`balance_currency_id` = `customer_balance_currency`.`id`
             WHERE COALESCE(`customer`.`balance_amount` / `customer_balance_currency`.`rate_to_default_currency`, 0) 
                       > :minimalBalance
-            GROUP BY `branch`.`id` HAVING `customers_amount` > :customerAmount;
+            GROUP BY `branch`.`id` HAVING `customers_amount` >= :customerAmount;
         ");
         $statement->bindParam(':minimalBalance', $minimalBalance);
         $statement->bindParam(':customerAmount', $customersAmount, PDO::PARAM_INT);
