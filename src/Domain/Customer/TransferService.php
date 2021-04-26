@@ -36,7 +36,7 @@ class TransferService
     {
         $this->transferValidator->validate($sender, $receiver, $amount);
         $senderCurrency = $sender->getBalance()->getCurrency();
-        $receiverCurrency = $sender->getBalance()->getCurrency();
+        $receiverCurrency = $receiver->getBalance()->getCurrency();
 
         $receiverAmount = $this->currencyConverter->convert($amount, $senderCurrency, $receiverCurrency);
 

@@ -30,7 +30,7 @@ class BranchesWithCustomersWithSpecifiedBalanceReport implements BranchesWithCus
             JOIN `customer` ON `customer`.`branch_id` = `branch`.`id`
             LEFT JOIN `currency` `customer_balance_currency` 
                 ON `customer`.`balance_currency_id` = `customer_balance_currency`.`id`
-            WHERE COALESCE(`customer`.`balance_amount` * `customer_balance_currency`.`rate_to_default_currency`, 0) 
+            WHERE COALESCE(`customer`.`balance_amount` / `customer_balance_currency`.`rate_to_default_currency`, 0) 
                       > :minimalBalance
             GROUP BY `branch`.`id` HAVING `customers_amount` > :customerAmount;
         ");
