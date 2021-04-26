@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ChessableBanking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/panel/node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/assets/panel/node_modules/admin-lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="/assets/panel/node_modules/admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/panel/node_modules/admin-lte/plugins/jqvmap/jqvmap.min.css">
+    <link rel="stylesheet" href="/assets/panel/node_modules/admin-lte/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/assets/panel/node_modules/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <link rel="stylesheet" href="/assets/panel/node_modules/admin-lte/plugins/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/assets/panel/node_modules/admin-lte/plugins/summernote/summernote-bs4.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <div class="sidebar">
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="info">
+                    <a href="#" class="d-block h4">ChessableBanking</a>
+                    {% if _currentBranch is null %}
+                        <a href="#" class="d-block">[No branch selected]</a>
+                    {% else %}
+                        <a href="#" class="d-block">[Current branch: {{ _currentBranch.name }}]</a>
+                    {% endif %}
+                </div>
+            </div>
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item has-treeview menu-open">
+                        {% for menuPosition in _menuPositions %}
+                            <a href="{{ menuPosition.url }}" class="nav-link {% if path(app.request.attributes.get('_route')) == menuPosition.url %} active{% endif %}">
+                                <i class="nav-icon fas {{ menuPosition.icon }}"></i>
+                                <p>
+                                    {{ menuPosition.label }}
+                                </p>
+                            </a>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">{% if _title is not null %}{{ _title }}{% endif %}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="content">
+            <div class="container-fluid">
+                {% for message in app.flashes(constant('ChessableBanking\\UserInterface\\Panel\\Action\\AbstractAction::REDIRECT_FLASH_MESSAGE')) %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {% for panel in _panels %}
+                    {{ include(panel) }}
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+    <footer class="main-footer">
+        <strong>Prepared for Chessable Technical Assessment. <a href="http://adminlte.io">AdminLTE.io</a> template used, just to make it a little bit prettier.</strong>
+    </footer>
+</div>
+
+<script src="assets/panel/node_modules/admin-lte/plugins/jquery/jquery.min.js"></script>
+<script src="assets/panel/node_modules/admin-lte/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+</script>
+<script src="/assets/panel/node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/panel/node_modules/admin-lte/plugins/chart.js/Chart.min.js"></script>
+<script src="/assets/panel/node_modules/admin-lte/plugins/sparklines/sparkline.js"></script>
+<script src="/assets/panel/node_modules/admin-lte/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="/assets/panel/node_modules/admin-lte/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<script src="/assets/panel/node_modules/admin-lte/plugins/jquery-knob/jquery.knob.min.js"></script>
+<script src="/assets/panel/node_modules/admin-lte/plugins/moment/moment.min.js"></script>
+<script src="/assets/panel/node_modules/admin-lte/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="/assets/panel/node_modules/admin-lte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="/assets/panel/node_modules/admin-lte/plugins/summernote/summernote-bs4.min.js"></script>
+<script src="/assets/panel/node_modules/admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/assets/panel/node_modules/admin-lte/dist/js/adminlte.js"></script>
+<script src="/assets/panel/node_modules/admin-lte/dist/js/pages/dashboard.js"></script>
+<script src="/assets/panel/node_modules/admin-lte/dist/js/demo.js"></script>
+</body>
+</html>

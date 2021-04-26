@@ -1,0 +1,42 @@
+{% if branches is empty %}
+    <div class="card card-default">
+        <div class="card-body">
+            No branches were created
+        </div>
+    </div>
+{% else %}
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>Street</th>
+                    <th>Building number</th>
+                    <th>Apartment number</th>
+                    <th>Postal code</th>
+                    <th>Country</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for branch in branches %}
+                    <tr id="{{ branch.id }}">
+                        <td>{{ branch.name }}</td>
+                        <td>{{ branch.location.city }}</td>
+                        <td>{{ branch.location.street }}</td>
+                        <td>{{ branch.location.buildingNumber }}</td>
+                        <td>{{ branch.location.apartmentNumber }}</td>
+                        <td>{{ branch.location.postalCode }}</td>
+                        <td>{{ branch.location.country.name }}</td>
+                        <td>
+                            [<a href="{{ path('branch_select', {branchId: branch.id}) }}">Select</a>]
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}

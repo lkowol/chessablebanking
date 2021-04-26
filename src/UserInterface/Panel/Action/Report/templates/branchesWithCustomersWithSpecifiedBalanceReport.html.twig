@@ -1,0 +1,26 @@
+{% if branches is empty %}
+    <div class="card card-default">
+        <div class="card-body">
+            No branch matches the criteria
+        </div>
+    </div>
+{% else %}
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>Branch name</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for branch in branches %}
+                    <tr>
+                        <td>{{ branch.name }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}

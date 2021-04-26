@@ -1,31 +1,32 @@
-# This file is the entry point to configure your own services.
-# Files in the packages/ subdirectory configure your dependencies.
-
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-
 services:
-    # default configuration for services in *this* file
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
-            - '../src/Tests/'
+  ChessableBanking\:
+    resource: '../src/'
+    exclude:
+      - '../src/DependencyInjection/'
+      - '../src/Entity/'
+      - '../src/Kernel.php'
+      - '../src/Tests/'
 
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller/'
-        tags: ['controller.service_arguments']
+  ChessableBanking\Infrastructure\Database\MySQL\Connection\MySQLConnection:
+    $databaseHost: '%env(MYSQL_DB_HOST)%'
+    $databasePort: '%env(MYSQL_DB_PORT)%'
+    $databaseName: '%env(MYSQL_DATABASE)%'
+    $userName: '%env(MYSQL_DB_USER)%'
+    $password: '%env(MYSQL_DB_PASSWORD)%'
+    $charset: 'utf8'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+  ChessableBanking\Application\Migration\Registry\MigrationRegistry:
+    calls:
+      - method: registerMany
+        arguments:
+          $migrations:
+            - '@ChessableBanking\Infrastructure\Country\Database\MySQL\Migration\CountryMigration'
+            - '@ChessableBanking\Infrastructure\Location\Database\MySQL\Migration\LocationMigration'
+            - '@ChessableBanking\Infrastructure\Branch\Database\MySQL\Migration\BranchMigration'
+            - '@ChessableBanking\Infrastructure\Currency\Database\MySQL\Migration\CurrencyMigration'
+            - '@ChessableBanking\Infrastructure\Customer\Database\MySQL\Migration\CustomerMigration'

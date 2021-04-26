@@ -6,7 +6,8 @@ dockerBuild () {
 
 run () {
    cd docker && docker-compose up &
-   sleep 30
+   cd public/assets/panel && npm install admin-lte && cd ../../..
+   sleep 10
    mutagen project terminate
    mutagen project start
 }

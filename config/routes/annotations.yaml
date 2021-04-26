@@ -1,7 +1,6 @@
 controllers:
-    resource: ../../src/Controller/
+    resource: ../../src/UserInterface/Panel/Action/
     type: annotation
-
 kernel:
     resource: ../../src/Kernel.php
     type: annotation

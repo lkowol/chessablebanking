@@ -1,0 +1,36 @@
+{% if customers is empty %}
+    <div class="card card-default">
+        <div class="card-body">
+            No customers were created
+        </div>
+    </div>
+{% else %}
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Balance amount</th>
+                    <th>Balance currency</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for customer in customers %}
+                    <tr id="{{ customer.id }}">
+                        <td>{{ customer.id }}</td>
+                        <td>{{ customer.name }}</td>
+                        <td>{{ customer.balance.amount }}</td>
+                        <td>{{ customer.balance.currency.name }}</td>
+                        <td>
+                            [<a href="{{ path('customer_transfer', {fromCustomerId: customer.id}) }}">Transfer</a>]
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}

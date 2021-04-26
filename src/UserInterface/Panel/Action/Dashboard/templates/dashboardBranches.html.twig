@@ -1,0 +1,31 @@
+{% if branches is empty %}
+    <div class="card card-default">
+        <div class="card-body">
+            <div class="alert alert-warning alert-dismissible">
+                <h5><i class="icon fas fa-exclamation-triangle"></i> No branches created</h5>
+                There aren't currently any branches. You should add one to gain access to balances & customers.
+                <a href="{{ path('branch_create') }}">Create branch</a>
+            </div>
+        </div>
+    </div>
+{% elseif _currentBranch is null %}
+    <div class="card card-default">
+        <div class="card-body">
+            <div class="alert alert-warning alert-dismissible">
+                <h5><i class="icon fas fa-exclamation-triangle"></i> No branch selected</h5>
+                You haven't selected any branch.
+                <a href="{{ path('branch_list') }}">Select branch</a>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="card card-default">
+        <div class="card-body">
+            <div class="alert alert-warning alert-dismissible">
+                <h5><i class="icon fas fa-exclamation-triangle"></i> No branch selected</h5>
+                You are currently on branch: {{ _currentBranch.name }} ({{ _currentBranch.id }}).
+                <a href="{{ path('branch_deselect') }}">Deselect</a>
+            </div>
+        </div>
+    </div>
+{% endif %}
